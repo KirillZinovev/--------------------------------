@@ -3,16 +3,16 @@ let zhyk = canvas.getContext('2d'); // жук - клетка
 let kletka = 32; // 1 клетака на поле = 32 пх
 let speed = 0; // скорость жука
 let animal = { //жук
-  x: 0,
-  y: 0, // начальные координаты
+  x: 160,
+  y: 160, // начальные координаты
   dx: kletka,
   dy: 0, //скорость жука
   cells: [], // тащю 2ую клетку за 1ой
   maxCells: 2 //lдлина жука 2 клетки
 };
 let apple = { // типо яблоко
-  x: 300, // начальные координвты
-  y: 300
+  x: 320, // начальные координвты
+  y: 320
 };
 function getRandomInt(min, max) { //генератор случ чисел в диапазоне игрового поля
   return Math.floor(Math.random() * (max - min)) + min;
@@ -52,32 +52,14 @@ function loop() { // игровой процесс
   // Обрабатываем каждый элемент змейки
   animal.cells.forEach(function (cell, index) {
     // Чтобы создать эффект клеточек, делаем зелёные квадратики меньше на один пиксель, чтобы вокруг них образовалась чёрная граница
-    zhyk.fillRect(cell.x, cell.y, kletka - 1, kletka - 1);
+    zhyk.fillRect(cell.x, cell.y, kletka, kletka);
     // Если змейка добралась до яблока...
     if (cell.x === apple.x && cell.y === apple.y) {
       // увеличиваем длину змейки
-      animal.maxCells++;
       // Рисуем новое яблочко
-      // Помним, что размер холста у нас 400x400, при этом он разбит на ячейки — 25 в каждую сторону
+      // Помним, что размер холста у нас 700x700, при этом он разбит на ячейки — 25 в каждую сторону
       apple.x = getRandomInt(0, 25) * kletka;
       apple.y = getRandomInt(0, 25) * kletka;
-    }
-    // Проверяем, не столкнулась ли змея сама с собой
-    // Для этого перебираем весь массив и смотрим, есть ли у нас в массиве змейки две клетки с одинаковыми координатами 
-    for (var i = index + 1; i < animal.cells.length; i++) {
-      // Если такие клетки есть — начинаем игру заново
-      if (cell.x === animal.cells[i].x && cell.y === animal.cells[i].y) {
-        // Задаём стартовые параметры основным переменным
-        animal.x = 160;
-        animal.y = 160;
-        animal.cells = [];
-        animal.maxCells = 4;
-        animal.dx = kletka;
-        animal.dy = 0;
-        // Ставим яблочко в случайное место
-        apple.x = getRandomInt(0, 25) * kletka;
-        apple.y = getRandomInt(0, 25) * kletka;
-      }
     }
   });
 }
