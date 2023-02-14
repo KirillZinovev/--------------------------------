@@ -2,14 +2,17 @@ let canvas = document.getElementById('game'); //игровое поле
 let zhyk = canvas.getContext('2d'); // жук - клетка
 let kletka = 32; // 1 клетака на поле = 32 пх
 let speed = 0; // скорость жука
+let schet = 0;
 let animal = { //жук
   x: 160,
   y: 160, // начальные координаты
   dx: kletka,
   dy: 0, //скорость жука
-  cells: [], // тащю 2ую клетку за 1ой
+  cells: [0,1], // тащю 2ую клетку за 1ой
   maxCells: 2 //lдлина жука 2 клетки
 };
+
+
 
 let apple = { // типо яблоко
   x: 320, // начальные координвты
@@ -56,11 +59,10 @@ function loop() { // игровой процесс
     zhyk.fillRect(cell.x, cell.y, kletka, kletka);
     // Если змейка добралась до яблока...
     if (cell.x === apple.x && cell.y === apple.y) {
-      // увеличиваем длину змейки
-      // Рисуем новое яблочко
-      // Помним, что размер холста у нас 700x700, при этом он разбит на ячейки — 25 в каждую сторону
       apple.x = getRandomInt(0, 25) * kletka;
       apple.y = getRandomInt(0, 25) * kletka;
+      schet++;
+      document.getElementById("schet").innerHTML = "Счет:" + schet;
     }
   });
 }
@@ -91,5 +93,6 @@ document.addEventListener('keydown', function (e) {
     animal.dx = 0;
   }
 });
+
 // Запускаем игру
 requestAnimationFrame(loop);
