@@ -51,7 +51,7 @@ function loop() { // игровой процесс
   zhyk.fillStyle = 'red';
   zhyk.fillRect(apple.x, apple.y, kletka - 1, kletka - 1);
   // Одно движение змейки — один новый нарисованный квадратик 
-  zhyk.fillStyle = 'green';
+  zhyk.fillStyle = 'black';
   // Обрабатываем каждый элемент змейки
   animal.cells.forEach(function (cell, index) {
     // Чтобы создать эффект клеточек, делаем зелёные квадратики меньше на один пиксель, чтобы вокруг них образовалась чёрная граница
